@@ -181,12 +181,12 @@ public class ObstacleNEW {
 
 	}
 	
-	public int getColTile(int x)
+	public int getY()
 	{	
-		return x/tileMap.getTileSize();	
+		return x;	
 	}
-	public int getRowTile(int y)
+	public int getX()
 	{	
-		return y/tileMap.getTileSize();	
+		return y;	
 	}
 }
