@@ -69,4 +69,9 @@ public class Map1State extends GameState {
 
 	}
 	
+	//public boolean checkCollision()
+	{
+		
+	}
+	
 }
