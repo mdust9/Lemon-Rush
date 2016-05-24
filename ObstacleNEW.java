@@ -180,4 +180,13 @@ public class ObstacleNEW {
 				width, height);
 
 	}
+	
+	public int getColTile(int x)
+	{	
+		return x/tileMap.getTileSize();	
+	}
+	public int getRowTile(int y)
+	{	
+		return y/tileMap.getTileSize();	
+	}
 }
