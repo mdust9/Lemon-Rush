@@ -1,6 +1,6 @@
 package Objects;
 
-import java.awt.Color;
+import java.awt.*;
 import java.awt.Graphics2D;
 
 import me.game.gamestates.GameStateManager;
@@ -15,6 +15,7 @@ public class Player {
 
 	private int width;
 	private int height;
+	private Polygon myPoly;
 
 
 	private boolean left;
@@ -54,6 +55,12 @@ public class Player {
 		stopSpeed = 0.30;
 		jumpStart = -11.0;
 		gravity = 0.64;
+		
+		myPoly = new Polygon();
+		myPoly.addPoint(x - width / 2, y - height / 2);
+		myPoly.addPoint(x - width / 2, y + height / 2);
+		myPoly.addPoint(x + width / 2, y - height / 2);
+		myPoly.addPoint(x + width / 2, y + height / 2);
 	}
 	
 	public void setX(int x) {
@@ -61,6 +68,20 @@ public class Player {
 	}
 	public void setY(int y) {
 		this.y = y;
+	}
+	
+	public double getX()
+	{
+		return x;
+	}
+	public double getY()
+	{
+		return y;
+	}
+	
+	public Polygon getPolygon()
+	{
+		return myPoly;
 	}
 
 	public void setLeft(boolean b) {
@@ -213,6 +234,11 @@ public class Player {
 				//tileMap.setX((int) (GamePanel.WIDTH / 2 - x));
 				//tileMap.setY((int) (GamePanel.HEIGHT / 2 - y));
 				
+				myPoly = new Polygon();
+				myPoly.addPoint(x - width / 2, y - height / 2);
+				myPoly.addPoint(x - width / 2, y + height / 2);
+				myPoly.addPoint(x + width / 2, y - height / 2);
+				myPoly.addPoint(x + width / 2, y + height / 2);
 			}
 	
 
