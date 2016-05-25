@@ -90,4 +90,17 @@ public class Map1State extends GameState {
 			o.update();
 		}
 	}
+	
+	public boolean detectCollisions()
+	{
+		for (int x = 0; x < obstacles.length(); x++)
+		{
+			if (player.getPolygon().intersects(obstacles.get(x).getLocation().getX() - 1, obstacles.get(x).getLocation().getY() - 1, obstacles.get(x).getLocation().getX() + 1, obstacles.get(x).getLocation().getY() + 1))
+			{
+				return true;
+			}
+			else
+				return false;
+		}
+	}
 }
