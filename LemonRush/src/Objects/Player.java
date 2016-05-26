@@ -1,7 +1,13 @@
 package Objects;
 
 import java.awt.*;
-import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 import me.game.gamestates.GameStateManager;
 import me.game.main.GamePanel;
@@ -12,6 +18,8 @@ public class Player {
 	private double y;
 	private double dx;
 	private double dy;
+	
+	private int lives;
 
 	private int width;
 	private int height;
@@ -45,7 +53,8 @@ public class Player {
 	public Player(TileMap tm) {
 
 		tileMap = tm;
-
+		lives = 1;
+		
 		width = 20;
 		height = 20;
 
@@ -57,10 +66,10 @@ public class Player {
 		gravity = 0.64;
 		
 		myPoly = new Polygon();
-		myPoly.addPoint(x - width / 2, y - height / 2);
-		myPoly.addPoint(x - width / 2, y + height / 2);
-		myPoly.addPoint(x + width / 2, y - height / 2);
-		myPoly.addPoint(x + width / 2, y + height / 2);
+		myPoly.addPoint((int)(x - width / 2), (int) (y - height / 2));
+		myPoly.addPoint((int)(x - width / 2), (int) (y + height / 2));
+		myPoly.addPoint((int)(x + width / 2), (int) (y - height / 2));
+		myPoly.addPoint((int)(x + width / 2), (int) (y + height / 2));
 	}
 	
 	public void setX(int x) {
@@ -78,6 +87,18 @@ public class Player {
 	{
 		return y;
 	}
+	public double getTop(){
+		return y+(height/2);
+	}
+	public double getBot(){
+		return y-(height/2);
+	}
+	public double getLeft(){
+		 return x-(height/2);
+	}
+	public double getRight(){
+		return x+(height/2);
+	}
 	
 	public Polygon getPolygon()
 	{
@@ -94,6 +115,12 @@ public class Player {
 		if(!falling) {
 			jumping = b;
 		}
+	}
+	public int getWidth(){
+		return width;
+	}
+	public int getHeight(){
+		return height;
 	}
 	
 
@@ -117,7 +144,6 @@ public class Player {
 
 	public void update() {
 
-		// determine next position
 				if(left) {
 					dx -= moveSpeed;
 					if(dx < -maxSpeed) {
@@ -229,29 +255,38 @@ public class Player {
 				x = tempx;
 				y = tempy;
 				
-				
-				// move the map
-				//tileMap.setX((int) (GamePanel.WIDTH / 2 - x));
-				//tileMap.setY((int) (GamePanel.HEIGHT / 2 - y));
-				
 				myPoly = new Polygon();
-				myPoly.addPoint(x - width / 2, y - height / 2);
-				myPoly.addPoint(x - width / 2, y + height / 2);
-				myPoly.addPoint(x + width / 2, y - height / 2);
-				myPoly.addPoint(x + width / 2, y + height / 2);
+				myPoly.addPoint((int) (x - width / 2), (int) (y - height / 2));
+				myPoly.addPoint((int)(x - width / 2), (int) (y + height / 2));
+				myPoly.addPoint((int)(x + width / 2), (int) (y - height / 2));
+				myPoly.addPoint((int)(x + width / 2), (int) (y + height / 2));
 			}
 	
 
 	public void draw(Graphics2D g) {
-
-		int tx = 0;
-		int ty = 0;
-
-		g.setColor(Color.RED); 
+		/*g.setColor(Color.RED); 
 		g.fillRect(
-				(int) (tx + x - width / 2),
-				(int) (ty + y - height / 2),
-				width, height);
-
+				(int) (x - width / 2),
+				(int) (y - height / 2),
+				width, height);*/
+		
+		ImageIcon image = null;
+		try
+		{
+			image = new ImageIcon(ImageIO.read(getClass().getResource("/Resources/Graphics/Hud.png")));
+		}
+		catch(Exception e)
+		{
+		}
+		Image img = image.getImage();//rescale
+		g.drawImage(img, (int)(x-(width/2)), (int)(y-(height/2)), null);
 	}
+	
+	public void loseLife(){
+		lives--;
+	}
+	public int getLives(){
+		return lives;
+	}
+	
 }
