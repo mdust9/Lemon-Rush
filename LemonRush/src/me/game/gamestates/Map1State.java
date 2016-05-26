@@ -24,7 +24,7 @@ public class Map1State extends GameState {
 		
 		tileMap = new TileMap("Map1.txt", 32);
 		tileMap.loadTiles("TileSet.gif");
-
+		
 		player = new Player(tileMap);
 		player.setX(250);
 		player.setY(450);
@@ -42,9 +42,15 @@ public class Map1State extends GameState {
 	}
 
 	public void update() {
+		if(player.getLives()==0){
+			gsm.setState(GameStateManager.MENUSTATE);
+		}
 		x++;
 		tileMap.update();
 		player.update();
+		if(detectCollisions()==true){
+			player.loseLife();
+		}
 		if (x%200==0){
 			ObstacleNEW o2 = new ObstacleNEW(tileMap);
 			o2.setX(50);
@@ -93,14 +99,18 @@ public class Map1State extends GameState {
 	
 	public boolean detectCollisions()
 	{
-		for (int x = 0; x < obstacles.length(); x++)
+		for (ObstacleNEW o: obstacles)
 		{
-			if (player.getPolygon().intersects(obstacles.get(x).getLocation().getX() - 1, obstacles.get(x).getLocation().getY() - 1, obstacles.get(x).getLocation().getX() + 1, obstacles.get(x).getLocation().getY() + 1))
+			/*if (player.getPolygon().intersects(obstacles.get(x).getX() - obstacles.get(x).getWidth() / 2, obstacles.get(x).getY() + obstacles.get(x).getHeight() / 2, obstacles.get(x).getWidth(), obstacles.get(x).getHeight()))
 			{
 				return true;
-			}
-			else
-				return false;
+			}*/
+			if(((player.getBot()>=o.getBot()&&player.getBot()<=o.getTop())
+					||(player.getTop()>=o.getBot()&&player.getTop()<=o.getTop()))
+					&&((player.getLeft()>=o.getLeft()&&player.getLeft()<=o.getRight())
+					||(player.getRight()>=o.getLeft()&&player.getRight()<=o.getRight())))
+					return true;
 		}
+		return false;
 	}
 }
