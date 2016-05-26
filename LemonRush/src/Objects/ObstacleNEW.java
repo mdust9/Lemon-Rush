@@ -58,6 +58,26 @@ public class ObstacleNEW {
 	public void setY(int y1) {
 		this.y = y1;
 	}
+	public double getX()
+	{
+		return x;
+	}
+	public double getY()
+	{
+		return y;
+	}
+	public double getTop(){
+		return y+(height/2);
+	}
+	public double getBot(){
+		return y-(height/2);
+	}
+	public double getLeft(){
+		 return x-(height/2);
+	}
+	public double getRight(){
+		return x+(height/2);
+	}
 
 	private void calculateCorners(double x, double y) {
 		int leftTile = tileMap.getColTile((int)(x - width /2));
@@ -69,31 +89,24 @@ public class ObstacleNEW {
 		bottomLeft = tileMap.isBlocked(bottomTile, leftTile);
 		bottomRight = tileMap.isBlocked(bottomTile, rightTile);
 	}
+	
+	public int getHeight()
+	{
+		return height;
+	}
+	
+	public int getWidth()
+	{
+		return width;
+	}
 
 	////////////////////////////////////////////
 
 	public void update() {
 
-		// determine next position
-				/*if(left) {
-					dx -= moveSpeed;
-					if(dx < -maxSpeed) {
-						dx = -maxSpeed;
-					}
-				}
-				else if(right) {
-					dx += moveSpeed;
-					if(dx > maxSpeed) {
-						dx = maxSpeed;
-					}
-				}
-				
-				*/
 		if(dx>=0) dx+=moveSpeed;
 		if(dx<0) dx-=moveSpeed;
-			//dx+=moveSpeed;
 			if(dx > maxSpeed||dx<-maxSpeed) {
-				//dx = maxSpeed;
 				if(dx>=0) dx = moveSpeed;
 				if(dx<0) dx = -moveSpeed;
 			}
@@ -164,11 +177,6 @@ public class ObstacleNEW {
 				
 				x = tempx;
 				y = tempy;
-				
-				
-				// move the map
-				//tileMap.setX((int) (GamePanel.WIDTH / 2 - x));
-				//tileMap.setY((int) (GamePanel.HEIGHT / 2 - y));
 				
 			}
 	
