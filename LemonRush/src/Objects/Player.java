@@ -273,7 +273,7 @@ public class Player {
 		ImageIcon image = null;
 		try
 		{
-			image = new ImageIcon(ImageIO.read(getClass().getResource("/Resources/Graphics/Hud.png")));
+			image = new ImageIcon(ImageIO.read(getClass().getResource("/Resources/Graphics/yonce.jpg")));
 		}
 		catch(Exception e)
 		{
